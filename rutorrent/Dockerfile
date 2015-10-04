@@ -10,7 +10,7 @@ RUN echo "deb http://nginx.org/packages/mainline/debian jessie nginx" >> /etc/ap
         echo "deb-src http://ftp2.fr.debian.org/debian jessie main non-free" >> /etc/apt/sources.list.d/non-free.list && \
         echo "deb http://www.deb-multimedia.org jessie main non-free" >> /etc/apt/sources.list.d/multimedia.list
 
-RUN groupadd -g 5000 torrent && useradd --shell /bin/bash -m --groups torrent --uid 5000 torrent
+RUN groupadd -g 5000 torrent && useradd --shell /bin/bash -m --gid 5000 --uid 5000 torrent
 
 RUN apt-key add /tmp/nginx.key && rm -rf /tmp/nginx.key && dpkg -i /tmp/multimedia.deb && rm -rf /tmp/multimedia.deb && \
         export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get upgrade -y && \
@@ -41,7 +41,6 @@ ENV DOWNLOAD_LIMIT 0
 ENV UPLOAD_LIMIT 0
 
 VOLUME ["/sites","/data"]
-RUN chown torrent:torrent /torrents
 EXPOSE 80
 
 CMD ["/usr/bin/start.sh"]
