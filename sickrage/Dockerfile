@@ -1,17 +1,20 @@
 FROM debian
 MAINTAINER xataz <xataz@mondedie.fr>
 
-RUN export DEBIAN_FRONTEND=noninteractive && \
-	apt-get update && apt-get install -y python-cheetah git && \
-	mkdir -p /sickrage && cd /sickrage && git clone https://github.com/SiCKRAGETV/SickRage.git && \
-	
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y python-cheetah git 
+RUN cd / && git clone https://github.com/SiCKRAGETV/SickRage.git
+RUN groupadd -g 5000 torrent && useradd --shell /bin/bash --home /data -M --gid 5000 --uid 5000 torrent && chown -R torrent:torrent /SickRage
 
+VOLUME [ "/config", "/blackhole", "/torrent"]
 
-RUN mkdir -p /data/sickrage && groupadd -g 5000 torrent && useradd --shell /bin/bash --home /data -M --group torrent torrent
+ENV TORRENT_METHOD="rtorrent"
+ENV TORRENT_HOST="scgi://torrent:5000"
+ENV TORRENT_DIR="0|/torrent"
 
-VOLUME ["/data"]
+ADD start.sh /usr/bin/start.sh
+ADD config.ini /tmp/config.ini
 
-ENV TORRENT_CLIENT="rutorrent"
-USER torrent
+RUN chmod +x /usr/bin/start.sh
+
 EXPOSE 8081
-CMD ["/usr/bin/python","/sickrage/SickBeard.py"]
+CMD ["/usr/bin/start.sh"]
