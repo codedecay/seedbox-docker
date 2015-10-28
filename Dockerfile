@@ -1,12 +1,10 @@
 FROM alpine:latest
 MAINTAINER Bastien Schwartz <bschwartz@lemark.xyz>
 
-RUN apk update \
-    && apk add bash nginx ca-certificates \
-    php-fpm php-json php-zlib php-xml php-pdo php-phar php-openssl \
-    php-pdo_mysql php-mysqli \
+RUN apk add --update bash nginx ca-certificates \
+    php-fpm php-json php-zlib php-xml \
     php-gd php-iconv php-mcrypt \
-	unzip
+	  unzip
 
 # fix php-fpm "Error relocating /usr/bin/php-fpm: __flt_rounds: symbol not found" bug
 RUN apk add -u musl
