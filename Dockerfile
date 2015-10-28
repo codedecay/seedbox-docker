@@ -1,4 +1,4 @@
-FROM alpine:lastest
+FROM alpine:latest
 MAINTAINER Bastien Schwartz <bschwartz@lemark.xyz>
 
 RUN apk update \
@@ -12,10 +12,10 @@ RUN apk update \
 RUN apk add -u musl
 RUN rm -rf /var/cache/apk/*
 ADD https://github.com/SSilence/selfoss/releases/download/2.14/selfoss-2.14.zip /tmp/
-RUN unzip /tmp/selfoss-*.zip -d /var/www/html && \
+RUN unzip /tmp/selfoss-*.zip && \
     rm /tmp/selfoss-*.zip /var/www/html/index.html && \
     ln -s /var/www/html/data/config.ini /var/www/html && \
-    chown -R www-data:www-data /var/www/html
+    chown -R nginx:www-data /var/www/html
 ADD files/nginx.conf /etc/nginx/
 ADD files/php-fpm.conf /etc/php/
 ADD files/run.sh /
