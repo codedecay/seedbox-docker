@@ -1,0 +1,103 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  background: #242424;
+}
+
+body {
+  font-size: 15px;
+  padding: 1.333em;
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF;
+}
+
+#logotop {
+  margin: 0 auto;
+  width : 491px; 
+  height : 181px;
+  margin-top:0px;
+}
+
+a {
+  text-decoration: none;
+  color: #3A3A3C; /* couleur des icones et liens */
+}
+
+a:hover {
+  text-decoration: none;
+  color: white; /* couleur des icones et des liens survolés */
+}
+
+h2 {
+	font-size:14px;
+	margin-top:12px;
+}
+
+.wrapper {
+  border-radius: 1em;
+  width: 40%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top:0px;
+}
+
+.wrapper .page {
+  float: right;
+  width: 100%;
+  box-shadow: 0px 0px 20px #222222;
+}
+
+.wrapper .page header {
+  background: #3A3A3C; /* couleur de la barre de titre */
+  height: 3em;
+  line-height: 3em;
+  font-size: 1.333em;
+  text-align: center;
+  position: relative;
+  color: #aaa; /* couleur du titre */
+}
+
+.wrapper .page .content {
+  box-shadow: inset 0 5px 5px -5px #222222;
+  background: #aaa; /* couleur de fond du dashboard */
+}
+
+.wrapper .page .content .item {
+  float: left;
+  display: block;
+  width: 33%;
+  text-align: center;
+  height: auto;
+  font-size: 1.5em;
+  padding: 1em 0em;
+  text-transform: uppercase;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.wrapper .page .content .item span {
+  font-size: 3em;
+}
+
+.wrapper .page .content:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header {
+	float: right;
+}
+.header .right {
+	font-size: 1.3em;
+	color: #aaa;
+}

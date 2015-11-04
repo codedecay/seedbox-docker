@@ -1,12 +1,14 @@
 FROM alpine:3.2
 MAINTAINER xataz <xataz@mondedie.fr>
 
-RUN addgroup -g 5000 torrent && adduser -h /home/torrent -D -G torrent -u 5000 torrent
-
+VOLUME ["/data"]
+CMD ["/usr/bin/start.sh"]
+ADD fs /
 ENV JRE=jre1.8.0_60 \
     JAVA_HOME=/opt/jre
 
-RUN apk add --update wget ca-certificates transmission-daemon bash && \
+RUN addgroup -g 5000 torrent && adduser -h /home/torrent -D -G torrent -u 5000 torrent && chmod +x /usr/bin/start.sh && \
+    apk add --update wget ca-certificates transmission-daemon && \
     cd /tmp && \
     wget "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk" \
          "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-bin-2.21-r2.apk" && \
@@ -22,9 +24,3 @@ RUN apk add --update wget ca-certificates transmission-daemon bash && \
     cd /opt/jre/lib/amd64 && rm libjavafx_* libjfx* libfx* && \
     cd /opt/jre/lib/ && rm -rf ext/jfxrt.jar jfxswt.jar javafx.properties font* && \
     rm /tmp/* /var/cache/apk/*
-
-
-ADD fs /
-VOLUME ["/data"]
-CMD ["/usr/bin/start.sh"]
-

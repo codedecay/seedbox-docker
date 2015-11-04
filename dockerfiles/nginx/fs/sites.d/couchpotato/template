@@ -1,0 +1,4 @@
+if ($remote_user = "<username>") {
+	proxy_pass http://couchpotato_<username>:5050;
+	break;
+}

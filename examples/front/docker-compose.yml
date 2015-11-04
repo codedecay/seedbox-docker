@@ -1,0 +1,22 @@
+web:
+  image: xataz/seedbox-nginx
+  links:
+    - mariadb:db
+    - emby:emby
+    - pydio:files
+
+db:
+  image: xataz/seedbox-mariadb
+
+emby:
+  image: emby/emby-server
+
+pydio:
+  image: pydio/pydio
+
+ftp:
+  image: xataz/seedbox-ftp
+
+vpn:
+  image: xataz/seedbox-vpn
+

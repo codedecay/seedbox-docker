@@ -1,0 +1,14 @@
+CREATE DATABASE db_torrent;
+
+CREATE TABLE db_torrent.users (
+	id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	username VARCHAR(30) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	method VARCHAR(20) NOT NULL DEFAULT 'rutorrent',
+	sickrage BOOLEAN NOT NULL DEFAULT 0,
+	couchpotato BOOLEAN NOT NULL DEFAULT 0,
+	PRIMARY KEY (id)
+);
+
+GRANT ALL PRIVILEGES ON db_torrent.* TO 'torrent'@'%' IDENTIFIED BY 'torrent' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON db_torrent.* TO 'torrent'@'localhost' IDENTIFIED BY 'torrent' WITH GRANT OPTION;

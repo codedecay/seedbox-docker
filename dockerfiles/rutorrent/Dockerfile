@@ -1,12 +1,17 @@
 FROM alpine:3.2
 MAINTAINER xataz <xataz@mondedie.fr>
 
+COPY fs /
+VOLUME /sites /data
+EXPOSE 80
+CMD ["/usr/bin/start.sh"]
+
 ENV JRE=jre1.8.0_60 \
     JAVA_HOME=/opt/jre
 
 RUN addgroup -g 5000 torrent && adduser -h /home/torrent -s /bin/sh -D -G torrent -u 5000 torrent && \
 	echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
-	apk add --update subversion wget ffmpeg ca-certificates rtorrent bash nginx php-fpm php-json curl gzip zip unrar supervisor git geoip && \
+	apk add --update subversion wget ffmpeg ca-certificates rtorrent nginx php-fpm php-json curl gzip zip unrar supervisor git geoip && \
     	cd /tmp && \
     	wget "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk" \
 		"https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-bin-2.21-r2.apk" && \
@@ -28,8 +33,3 @@ RUN addgroup -g 5000 torrent && adduser -h /home/torrent -s /bin/sh -D -G torren
     	cd /opt/jre/lib/ && rm -rf ext/jfxrt.jar jfxswt.jar javafx.properties font* && \
     	rm /tmp/* /var/cache/apk/* && rm -rf /var/www/torrent/plugins/mediainfo
 
-COPY fs /
-VOLUME ["/sites","/data"]
-EXPOSE 80
-
-CMD ["/usr/bin/start.sh"]

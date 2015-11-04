@@ -1,0 +1,4 @@
+if ($remote_user = "<username>") {
+        proxy_pass http://sickrage_<username>:8081;
+	break;
+}
