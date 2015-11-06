@@ -1,22 +1,55 @@
 web:
   image: xataz/seedbox-nginx
   links:
-    - mariadb:db
     - emby:emby
-    - pydio:files
-
-db:
-  image: xataz/seedbox-mariadb
-
-emby:
-  image: emby/emby-server
-
-pydio:
-  image: pydio/pydio
+    - files:files
+    - git:git
+    - up1:up1
+    - proxy:proxy
+  external_links:
+    - user1_torrent_1:torrent_user1
+    - user1_sickrage_1:sickrage_user1
+    - user1_couchpotato_1:couchpotato_user1
+    - user2_torrent_1:torrent_user2
+    - user2_sickrage_1:sickrage_user2
+    - user3_torrent_1:torrent_user3
+    - user3_sickrage_1:torrent_user3
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - /docker/config/auth:/auth
 
 ftp:
   image: xataz/seedbox-ftp
+  volumes:
+    - /data:/data
+    - /docker/config/auth:/auth
+  ports:
+    - "20:20"
+    - "21:21"
+    - "30000:30000"
+    - "30001:30001"
+    - "30002:30002"
+    - "30003:30003"
+    - "30004:30004"
+    - "30005:30005"
+  restart: always
 
-vpn:
-  image: xataz/seedbox-vpn
+emby:
+  image: xataz/seedbox-emby
+  volumes:
+    - /data:/data
 
+files:
+  image: kdelfour/pydio-docker
+
+up1:
+  image: xataz/docker-up1:webroot
+  environment:
+    - WEB_ROOT=/up1
+git:
+  image: gogs/gogs
+
+proxy:
+  image: isotnikov/simple-http-proxy

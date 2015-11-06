@@ -1,0 +1,22 @@
+torrent:
+  image: xataz/seedbox-rutorrent
+  volumes:
+    - /data/user1:/data
+
+sickrage:
+  image: xataz/seedbox-sickrage
+  environment:
+    - METHOD="rtorrent"
+  links:
+    - torrent:torrent
+  volumes:
+    - /data/user1/Media/TV\ Shows:/torrents
+
+couchpotato:
+  image: xataz/seedbox-couchpotato
+  environment:
+    - METHOD="rtorrent"
+  links:
+    - torrent:torrent
+  volumes:
+    - /data/user1/Media/Movies:/torrents

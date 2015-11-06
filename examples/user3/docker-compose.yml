@@ -1,0 +1,14 @@
+torrent:
+  image: xataz/seedbox-rutorrent
+  volumes:
+    - /data/user3:/data
+
+sickrage:
+  image: xataz/seedbox-sickrage
+  environment:
+    - METHOD="blackhole"
+  links:
+    - torrent:torrent
+  volumes:
+    - /data/user3/Media/TV\ Shows:/torrents
+    - /data/user3/watch:/blackhole

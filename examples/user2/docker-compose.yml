@@ -1,0 +1,14 @@
+torrent:
+  image: xataz/seedbox-transmission
+  volumes:
+    - /data/user2:/data
+
+sickrage:
+  image: xataz/seedbox-sickrage
+  environment:
+    - METHOD="transmission"
+  links:
+    - torrent:torrent
+  volumes:
+    - /data/user2/Media/TV\ Shows:/torrents
+
